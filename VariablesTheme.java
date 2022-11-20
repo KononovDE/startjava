@@ -1,18 +1,20 @@
 public class VariablesTheme {   
     public static void main(String[] args) {
-        outputVar();
-        calculateCost();
+        outputPrimitiveTypesValues();
+        calculatePrice();
         outputJava();
         outputMinMax();
-        swapVar();
-        outputSymb();
+        swapVarValues();
+        outputSymbols();
         divideNum();
-        drawArt();
+        outputDukeArt();
         sumMultOfDigits();
         convertSecondsToTime();
     }
 
-    private static void outputVar() {
+    private static void outputPrimitiveTypesValues() {
+        System.out.println("1. Вывод значений переменных на консоль ");
+
         byte bitWidths = 64;
         short ramSize = 8;
         int cores = Runtime.getRuntime().availableProcessors();
@@ -21,8 +23,6 @@ public class VariablesTheme {
         double cpuFrequency = 2.30;
         char wifiStandard = '5';
         boolean numericKeypad = true;
-
-        System.out.println("1. Вывод значений переменных на консоль ");
 
         System.out.println("Разрядность системы: " + bitWidths);
         System.out.println("Объём оперативной памяти: " + ramSize);
@@ -34,18 +34,17 @@ public class VariablesTheme {
         System.out.println("Цифровой блок клавиатуры: " + numericKeypad);
     }
 
-    private static void calculateCost() {
-        float penCost = 100;
-        float bookCost = 200;
-        int discount = 11;
-        float sumDiscount;
-        float sumCost;
-
+    private static void calculatePrice() {
         System.out.println("\n2. Расчет стоимости товара со скидкой ");
-        sumDiscount = (penCost + bookCost) * discount / 100;
-        sumCost = (penCost + bookCost) - ((penCost + bookCost) * discount / 100);
+        float penPrice = 100;
+        float bookPrice = 200;
+        float sumPrice = penPrice + bookPrice;
+        int discount = 11;
+        float sumDiscount = sumPrice * discount / 100;
+        float discountPrice = sumPrice - sumDiscount;
+
         System.out.println("Сумма скидки: " + sumDiscount);
-        System.out.println("Общая стоимость товаров со скидкой: " + sumCost);
+        System.out.println("Общая стоимость товаров со скидкой: " + discountPrice);
     }
 
     private static void outputJava() {
@@ -57,50 +56,40 @@ public class VariablesTheme {
     }
 
     private static void outputMinMax() {
-        byte byteVar = Byte.MAX_VALUE;
-        short shortVar = Short.MAX_VALUE;
-        int intVar = Integer.MAX_VALUE;
-        long longVar = Long.MAX_VALUE;
-
         System.out.println("\n4. Вывод min и max значений целых числовых типов");
+        byte byteNum = Byte.MAX_VALUE;
+        short shortNum = Short.MAX_VALUE;
+        int intNum = Integer.MAX_VALUE;
+        long longNum = Long.MAX_VALUE;
 
-        System.out.println("byte (Нач. значение):" + byteVar);
-        System.out.println("short (Нач. значение):" + shortVar);
-        System.out.println("int (Нач. значение):" + intVar);
-        System.out.println("long (Нач. значение):" + longVar);
+        System.out.println("byte (Нач. значение):" + byteNum++);
+        System.out.println("short (Нач. значение):" + shortNum++);
+        System.out.println("int (Нач. значение):" + intNum++);
+        System.out.println("long (Инк. значение):" + longNum++);
         System.out.println();
 
-        byteVar++;
-        shortVar++;
-        intVar++;
-        longVar++;
-        System.out.println("byte (Инк. значение):" + byteVar);
-        System.out.println("short (Инк. значение):" + shortVar);
-        System.out.println("int (Инк. значение):" + intVar);
-        System.out.println("long (Инк. значение):" + longVar);
+        System.out.println("byte (Инк. значение):" + byteNum--);
+        System.out.println("short (Инк. значение):" + shortNum--);
+        System.out.println("int (Инк. значение):" + intNum--);
+        System.out.println("long (Инк. значение):" + longNum--);
         System.out.println();
 
-        byteVar--;
-        shortVar--;
-        intVar--;
-        longVar--;
-        System.out.println("byte (Дек. значение):" + byteVar);
-        System.out.println("short (Дек. значение):" + shortVar);
-        System.out.println("int (Дек. значение):" + intVar);
-        System.out.println("long (Дек. значение):" + longVar);
+        System.out.println("byte (Дек. значение):" + byteNum);
+        System.out.println("short (Дек. значение):" + shortNum);
+        System.out.println("int (Дек. значение):" + intNum);
+        System.out.println("long (Дек. значение):" + longNum);
     }
 
-    private static void swapVar() {
+    private static void swapVarValues() {
+        System.out.println("\n5. Перестановка значений переменных");
         int num1 = 2;
         int num2 = 5;
-        int num3;
-        
-        System.out.println("\n5. Перестановка значений переменных");
+        int num3 = num1;
 
         System.out.println("\nПерестановка с помощью третьей переменной");
         System.out.println("Исх. значение первой переменной: " + num1);
         System.out.println("Исх. значение второй переменной: " + num2);
-        num3 = num1;
+
         num1 = num2;
         num2 = num3;
         System.out.println("Нов. значение первой переменной: " + num1);
@@ -109,107 +98,94 @@ public class VariablesTheme {
         System.out.println("\nПерестановка с помощью арифметических операций");
         System.out.println("Исх. значение первой переменной: " + num1);
         System.out.println("Исх. значение второй переменной: " + num2);
-        num1 = num1 + num2;
+        num1 += num2;
         num2 = num1 - num2;
-        num1 = num1 - num2;
+        num1 -= num2;
         System.out.println("Нов. значение первой переменной: " + num1);
         System.out.println("Нов. значение второй переменной: " + num2);
 
         System.out.println("\nПерестановка с помощью побитовой операции");
         System.out.println("Исх. значение первой переменной: " + num1);
         System.out.println("Исх. значение второй переменной: " + num2);
-        num1 = num1 ^ num2;
+        num1 ^= num2;
         num2 = num1 ^ num2;
-        num1 = num1 ^ num2;
+        num1 ^= num2;
         System.out.println("Нов. значение первой переменной: " + num1);
         System.out.println("Нов. значение второй переменной: " + num2);
     }
 
-    private static void outputSymb() {
-        char symb1 = 35;
-        char symb2 = 38;
-        char symb3 = 64;
-        char symb4 = 94;
-        char symb5 = 95;
-        
+    private static void outputSymbols() {
         System.out.println("\n6. Вывод символов и их кодов");
+        char symb1 = '#';
+        int codeSymb1 = (int) symb1;
+        char symb2 = '&';
+        int codeSymb2 = (int) symb2;
+        char symb3 = '@';
+        int codeSymb3 = (int) symb3;
+        char symb4 = '^';
+        int codeSymb4 = (int) symb4;
+        char symb5 = '_';
+        int codeSymb5 = (int) symb5;
+
         System.out.println("Код Символ");
-        System.out.println("35 " + symb1);
-        System.out.println("38 " + symb2);
-        System.out.println("64 " + symb3);
-        System.out.println("94 " + symb4);
-        System.out.println("95 " + symb5);
+        System.out.println(codeSymb1 + " " + symb1);
+        System.out.println(codeSymb2 + " " + symb2);
+        System.out.println(codeSymb3 + " " + symb3);
+        System.out.println(codeSymb4 + " " + symb4);
+        System.out.println(codeSymb5 + " " + symb5);
     }
 
     private static void divideNum() {
-        int num = 123;
-        int hundredsCount;
-        int tensCount;
-        int onesCount;
-        
         System.out.println("\n7. Вывод количества сотен, десятков и единиц числа");
-
-        hundredsCount = num / 100;
-        tensCount = num / 10;
-        onesCount = num / 1;
+        int num = 123;
+        int ones = num % 10;
+        int remainder = num / 10;
+        int tens = remainder % 10;
+        int hundreds = remainder / 10;
         
         System.out.println("Число " + num + " содержит:");
-        System.out.println(hundredsCount + " сотен");
-        System.out.println(tensCount + " десятков");
-        System.out.println(onesCount + " единиц");
+        System.out.println(hundreds + " сотен");
+        System.out.println(tens + " десятков");
+        System.out.println(ones + " единиц");
     }
 
-    private static void drawArt() {
-        char symb1 = 47; // /
-        char symb2 = 92; // \
-        char symb3 = 40; // (
-        char symb4 = 41; // )
-        char symb5 = 95; // _
-        
+    private static void outputDukeArt() {
         System.out.println("\n8. Вывод в консоль ASCII-арт Дюка");
+        char symb1 = '/';
+        char symb2 = '\\';
+        char symb3 = '(';
+        char symb4 = ')';
+        char symb5 = '_';
+        
         System.out.println("     " + symb1 + symb2 + "     ");
         System.out.println("    " + symb1 + "  " + symb2 + "    ");
         System.out.println("   " + symb1 + symb5 + symb3 +" " + symb4 + symb2 + "   ");
         System.out.println("  " + symb1 + "      " + symb2 + "    ");
-        System.out.println(" " + symb1 + symb5 + symb5 + symb5 + symb5 + symb1 + symb2 + symb5 + symb5 + symb2 + " ");
+        System.out.println(" " + symb1 + symb5 + symb5 + symb5 + symb5 + symb1 + symb2 + symb5 +
+                symb5 + symb2 + " ");
     }
 
     private static void sumMultOfDigits() {
-        int num = 345;
-        int sum;
-        int mult;
-        int remainder;
-        int divinder;
         System.out.println("\n9. Вывод произведения и суммы цифр числа");
-
-        remainder = num % 10;
-        sum = remainder;
-        mult = remainder;
-        divinder = num / 10;
-
-        remainder = divinder % 10;
-        sum += remainder;
-        mult *= remainder;
-        divinder /= 10;
-
-        remainder = divinder % 10;
-        sum += remainder;
-        mult *= remainder;
+        int num = 345;
+        int ones = num % 10;
+        int remainder = num / 10;
+        int tens = remainder % 10;
+        int hundreds = remainder / 10;
+        int sum = ones + tens + hundreds;
+        int mult = ones * tens * hundreds;;
 
         System.out.println("Cумма цифр числа " + num + " = " + sum);
         System.out.println("Произведение цифр числа " + num + " = " + mult);
     }
 
     private static void convertSecondsToTime() {
-        int totalSeconds = 86399;
-        int hours;
-        int minutes;
-        int seconds;
-
         System.out.println("\n10. Вывод времени");
-        hours = totalSeconds / 3600;
-        minutes = (totalSeconds % 3600) / 60;
-        seconds = totalSeconds % 60;
+        int totalSeconds = 86399;
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;;
+        int seconds = totalSeconds % 60;;
+
         System.out.println(hours + ":" + minutes + ":" + seconds);
     }
 }
