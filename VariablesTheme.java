@@ -62,22 +62,20 @@ public class VariablesTheme {
         int intNum = Integer.MAX_VALUE;
         long longNum = Long.MAX_VALUE;
 
-        System.out.println("byte (Нач. значение):" + byteNum++);
-        System.out.println("short (Нач. значение):" + shortNum++);
-        System.out.println("int (Нач. значение):" + intNum++);
-        System.out.println("long (Инк. значение):" + longNum++);
-        System.out.println();
+        System.out.println("byte (Нач. значение):" + byteNum);
+        System.out.println("short (Нач. значение):" + shortNum);
+        System.out.println("int (Нач. значение):" + intNum);
+        System.out.println("long (Инк. значение):" + longNum);
 
-        System.out.println("byte (Инк. значение):" + byteNum--);
-        System.out.println("short (Инк. значение):" + shortNum--);
-        System.out.println("int (Инк. значение):" + intNum--);
-        System.out.println("long (Инк. значение):" + longNum--);
-        System.out.println();
+        System.out.println("\n byte (Инк. значение):" + ++byteNum);
+        System.out.println("short (Инк. значение):" + ++shortNum);
+        System.out.println("int (Инк. значение):" + ++intNum);
+        System.out.println("long (Инк. значение):" + ++longNum);
 
-        System.out.println("byte (Дек. значение):" + byteNum);
-        System.out.println("short (Дек. значение):" + shortNum);
-        System.out.println("int (Дек. значение):" + intNum);
-        System.out.println("long (Дек. значение):" + longNum);
+        System.out.println("\n byte (Дек. значение):" + --byteNum);
+        System.out.println("short (Дек. значение):" + --shortNum);
+        System.out.println("int (Дек. значение):" + --intNum);
+        System.out.println("long (Дек. значение):" + --longNum);
     }
 
     private static void swapVarValues() {
@@ -117,31 +115,25 @@ public class VariablesTheme {
     private static void outputSymbols() {
         System.out.println("\n6. Вывод символов и их кодов");
         char symb1 = '#';
-        int codeSymb1 = (int) symb1;
         char symb2 = '&';
-        int codeSymb2 = (int) symb2;
         char symb3 = '@';
-        int codeSymb3 = (int) symb3;
         char symb4 = '^';
-        int codeSymb4 = (int) symb4;
         char symb5 = '_';
-        int codeSymb5 = (int) symb5;
 
         System.out.println("Код Символ");
-        System.out.println(codeSymb1 + " " + symb1);
-        System.out.println(codeSymb2 + " " + symb2);
-        System.out.println(codeSymb3 + " " + symb3);
-        System.out.println(codeSymb4 + " " + symb4);
-        System.out.println(codeSymb5 + " " + symb5);
+        System.out.println((int) symb1 + " " + symb1);
+        System.out.println((int) symb2 + " " + symb2);
+        System.out.println((int) symb3 + " " + symb3);
+        System.out.println((int) symb4 + " " + symb4);
+        System.out.println((int) symb5 + " " + symb5);
     }
 
     private static void divideNum() {
         System.out.println("\n7. Вывод количества сотен, десятков и единиц числа");
         int num = 123;
         int ones = num % 10;
-        int remainder = num / 10;
-        int tens = remainder % 10;
-        int hundreds = remainder / 10;
+        int tens = num / 10 % 10;
+        int hundreds = num / 10 / 10;
         
         System.out.println("Число " + num + " содержит:");
         System.out.println(hundreds + " сотен");
@@ -151,27 +143,27 @@ public class VariablesTheme {
 
     private static void outputDukeArt() {
         System.out.println("\n8. Вывод в консоль ASCII-арт Дюка");
-        char symb1 = '/';
-        char symb2 = '\\';
-        char symb3 = '(';
-        char symb4 = ')';
-        char symb5 = '_';
+        char slash = '/';
+        char backslash = '\\';
+        char leftBracket = '(';
+        char rightBracket = ')';
+        char underscore  = '_';
         
-        System.out.println("     " + symb1 + symb2 + "     ");
-        System.out.println("    " + symb1 + "  " + symb2 + "    ");
-        System.out.println("   " + symb1 + symb5 + symb3 +" " + symb4 + symb2 + "   ");
-        System.out.println("  " + symb1 + "      " + symb2 + "    ");
-        System.out.println(" " + symb1 + symb5 + symb5 + symb5 + symb5 + symb1 + symb2 + symb5 +
-                symb5 + symb2 + " ");
+        System.out.println("     " + slash + backslash + "     ");
+        System.out.println("    " + slash + "  " + backslash + "    ");
+        System.out.println("   " + slash + underscore + leftBracket +" " + rightBracket +
+                backslash + "   ");
+        System.out.println("  " + slash + "      " + backslash + "    ");
+        System.out.println(" " + slash + underscore + underscore + underscore + underscore + slash
+                + backslash + underscore + underscore + backslash + " ");
     }
 
     private static void sumMultOfDigits() {
         System.out.println("\n9. Вывод произведения и суммы цифр числа");
         int num = 345;
         int ones = num % 10;
-        int remainder = num / 10;
-        int tens = remainder % 10;
-        int hundreds = remainder / 10;
+        int tens = num / 10 % 10;
+        int hundreds = num / 10 / 10;
         int sum = ones + tens + hundreds;
         int mult = ones * tens * hundreds;;
 
