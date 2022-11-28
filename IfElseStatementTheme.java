@@ -252,8 +252,7 @@ public class IfElseStatementTheme {
         System.out.println(num100BanknotesNeeded + " банкнот номиналом 100");
         System.out.println(num10BanknotesNeeded + " банкнот номиналом 10");
         System.out.println(num1BanknotesNeeded + " банкнот номиналом 1");
-        summ = num100BanknotesNeeded * 100 + num10BanknotesNeeded * 10 + 
-            num1BanknotesNeeded;
+        summ = num100BanknotesNeeded * 100 + num10BanknotesNeeded * 10 + num1BanknotesNeeded;
         System.out.println("Выдаваемая сумма: " + summ);
     }
 }
