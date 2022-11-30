@@ -4,9 +4,9 @@ public class IfElseStatementTheme {
         searchMaxMinNum();
         checkNum();
         searchEqualDigits();
-        getSymbolByCode();
+        findSymbolByCode();
         calcDepositAmountAndPercent();
-        getGradesBySubjects();
+        calcGradesBySubjects();
         calcProfitForYear();
         calcNumberOfBanknotes();
     }
@@ -35,17 +35,13 @@ public class IfElseStatementTheme {
             System.out.println("Рост в допустимом диапазоне: " + height);
         }
 
-        String name = "Ivan";
-        char firstCharName = name.charAt(0);
-        switch (firstCharName) {
-            case 'M':
-                System.out.println("Имя начинается на M: " + name);
-                break;
-            case 'I':
-                System.out.println("Имя начинается на I: " + name);
-                break;
-            default:
-                System.out.println("Нет известных совпадений по первой букве: " + name);
+        char capitalLetter = "Ivan".charAt(0);
+        if (capitalLetter == 'M') {
+            System.out.println("Имя начинается на M");
+        } else if (capitalLetter == 'I') {
+            System.out.println("Имя начинается на I");
+        } else {
+            System.out.println("Нет известных совпадений по первой букве");
         }
     }
 
@@ -55,11 +51,9 @@ public class IfElseStatementTheme {
         int num2 = 15;
 
         if (num1 > num2) {
-            System.out.println("max: num1 = " + num1);
-            System.out.println("min: num2 = " + num2);
+            System.out.println("max: num1 = " + num1 + "\nmin: num2 = " + num2);
         } else if (num1 < num2) {
-            System.out.println("max: num2 = " + num2);
-            System.out.println("min: num1 = " + num1);
+            System.out.println("max: num2 = " + num2 + "\nmin: num1 = " + num1);
         } else {
             System.out.println("num1 = num2 = " + num1);
         }
@@ -117,7 +111,7 @@ public class IfElseStatementTheme {
         }
     }
 
-    private static void getSymbolByCode() {
+    private static void findSymbolByCode() {
         System.out.println("\n5. Определение символа по его коду ");
         char symb = '\u0057';
         System.out.println("Исходное число: " + symb);
@@ -126,7 +120,7 @@ public class IfElseStatementTheme {
             System.out.println("Это большая буква");
         } else if (symb >= 'a' && symb <= 'z') {
             System.out.println("Это маленькая буква");
-        } else if (symb >= 0 && symb <= 9) {
+        } else if (symb >= '0' && symb <= '9') {
             System.out.println("Это число");
         } else {
             System.out.println("Это не буква и не число");
@@ -136,14 +130,12 @@ public class IfElseStatementTheme {
     private static void calcDepositAmountAndPercent() {
         System.out.println("\n6. Подсчет суммы вклада и начисленных банком % ");
         double depositSumm = 300000;
-        double accruedPercent;
+        double accruedPercent = 0.1;
 
         if (depositSumm < 100000) {
             accruedPercent = depositSumm * 0.05;
         } else if (depositSumm >= 100000 && depositSumm <= 300000) {
             accruedPercent = depositSumm * 0.07;
-        } else {
-            accruedPercent = depositSumm * 0.1;
         }
         double totalAmount = depositSumm + accruedPercent;
 
@@ -152,12 +144,12 @@ public class IfElseStatementTheme {
         System.out.println("Итоговая сумма с %: " + totalAmount);
     }
 
-    private static void getGradesBySubjects() {
+    private static void calcGradesBySubjects() {
         System.out.println("\n7. Определение оценки по предметам");
         int historyPercent = 59;
         int programmingPercent = 91;
-        int historyGrade;
-        int programmingGrade;
+        int historyGrade = 5;
+        int programmingGrade = 5;
 
         if (historyPercent <= 60) {
             historyGrade = 2;
@@ -165,8 +157,6 @@ public class IfElseStatementTheme {
             historyGrade = 3;
         } else if (historyPercent > 73 && historyPercent < 91) {
             historyGrade = 4;
-        } else {
-            historyGrade = 5;
         }
 
         if (programmingPercent <= 60) {
@@ -175,12 +165,10 @@ public class IfElseStatementTheme {
             programmingGrade = 3;
         } else if (programmingPercent > 73 && programmingPercent < 91) {
             programmingGrade = 4;
-        } else {
-            programmingGrade = 5;
         }
 
-        double avrGrade = ((double)(historyGrade + programmingGrade) / 2);
-        double avrPercent = (double)(historyPercent + programmingPercent) / 2;
+        double avrGrade = (double) (historyGrade + programmingGrade) / 2;
+        double avrPercent = (double) (historyPercent + programmingPercent) / 2;
 
         System.out.println(historyGrade + " История");
         System.out.println(programmingGrade + " Программирование");
@@ -204,55 +192,37 @@ public class IfElseStatementTheme {
 
     private static void calcNumberOfBanknotes() {
         System.out.println("\n9. Подсчет количества банкнот");
-        int summ = 567;
-        int num100BanknotesAvl = 10;
-        int num10BanknotesAvl = 5;
-        int num1BanknotesAvl = 50;
+        int sum = 567;
+        System.out.println("Необходимо снять " + sum + " USD");
 
-        int ones = summ % 10;
-        int tens = summ / 10 % 10;
-        int hundreds = summ / 100;
+        int banknotes100Available = 10;
+        int banknotes10Available = 5;
+        int banknotes1Available = 50;
 
-        int num1BanknotesNeeded = ones;
-        num1BanknotesAvl -= ones;
+        int banknotes100Expected = sum / 100;
+        int banknotes100Actual = banknotes100Available;
+        if (banknotes100Expected <= banknotes100Available) {
+            banknotes100Actual = banknotes100Expected; 
+        }
+        sum -= banknotes100Actual * 100;
 
-        int num10BanknotesNeeded;
-        if (num10BanknotesAvl >= tens) {
-            num10BanknotesNeeded = tens;
-            num10BanknotesAvl -= tens;
-        } else
-        {
-            num10BanknotesNeeded = num10BanknotesAvl;
-            num1BanknotesNeeded += (tens - num10BanknotesAvl) * 10;
-            num1BanknotesAvl -= (tens - num10BanknotesAvl) * 10;
-            num10BanknotesAvl = 0;
+        int banknotes10Expected = sum / 10;
+        int banknotes10Actual = banknotes10Available;
+        if (banknotes10Expected <= banknotes10Available) {
+            banknotes10Actual = banknotes10Expected; 
+        }
+        sum -= banknotes10Actual * 10;
+
+        int banknotes1Expected = sum;
+        int banknotes1Actual = banknotes1Available;
+        if (banknotes1Expected <= banknotes1Available) {
+            banknotes1Actual = banknotes1Expected; 
         }
 
-        int num100BanknotesNeeded;
-        if (num100BanknotesAvl >= hundreds) {
-            num100BanknotesNeeded = hundreds;
-            num100BanknotesAvl -= hundreds;
-        } else
-        {
-            num100BanknotesNeeded = num100BanknotesAvl;
-            if ((hundreds - num100BanknotesAvl) * 10 <= num10BanknotesAvl) {
-                num10BanknotesNeeded += (hundreds - num100BanknotesAvl) * 10;
-                num10BanknotesAvl -= (hundreds - num100BanknotesAvl) * 10;
-            } else {
-                num10BanknotesNeeded += num10BanknotesAvl;
-                num1BanknotesNeeded += (hundreds - num100BanknotesAvl - 
-                    ((double)num10BanknotesAvl / 10)) * 100;
-                num1BanknotesAvl -= num1BanknotesNeeded;
-                num10BanknotesAvl = 0;
-            }
-            num100BanknotesAvl = 0;
-        }
-
-        System.out.println("Необходимо снять " + summ + " USD");
-        System.out.println(num100BanknotesNeeded + " банкнот номиналом 100");
-        System.out.println(num10BanknotesNeeded + " банкнот номиналом 10");
-        System.out.println(num1BanknotesNeeded + " банкнот номиналом 1");
-        summ = num100BanknotesNeeded * 100 + num10BanknotesNeeded * 10 + num1BanknotesNeeded;
-        System.out.println("Выдаваемая сумма: " + summ);
+        System.out.println(banknotes100Actual + " банкнот номиналом 100");
+        System.out.println(banknotes10Actual + " банкнот номиналом 10");
+        System.out.println(banknotes1Actual + " банкнот номиналом 1");
+        sum = banknotes100Actual * 100 + banknotes10Actual * 10 + banknotes1Actual;
+        System.out.println("Выдаваемая сумма: " + sum);
     }
 }
