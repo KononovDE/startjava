@@ -281,6 +281,4 @@ public class CyclesTheme {
             System.out.println();
         }
     }
-        
-
 }
