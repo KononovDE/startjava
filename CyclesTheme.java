@@ -1,8 +1,8 @@
 public class CyclesTheme {   
     public static void main(String[] args) {
         calcEvenAndOdd();
-        orderNumbersInMinMaxInterval();
-        findReversibleNumberAndDigitsSum();
+        orderNumsInMinMaxInterval();
+        findReversibleNumAndDigitsSum();
         displayNumsInMultipleLines();
         checkIsNumOfTwosEven();
         drawFigures();
@@ -15,23 +15,23 @@ public class CyclesTheme {
     private static void calcEvenAndOdd() {
         System.out.println("1. Подсчет суммы четных и нечетных чисел");
         
-        int num = -10;
+        int counter = -10;
         int sumEven = 0;
         int sumOdd = 0;
         
         do {
-            if (num % 2 == 0) {
-                sumEven += num;
+            if (counter % 2 == 0) {
+                sumEven += counter;
             } else {
-                sumOdd += num;
+                sumOdd += counter;
             }
-            num++;
-        } while (num <= 21);
+            counter++;
+        } while (counter <= 21);
         System.out.println("В промежутке [-10, 21] сумма четных чисел = " + sumEven + 
-            ", а нечетных = " + sumOdd);
+                ", а нечетных = " + sumOdd);
     }
 
-    private static void orderNumbersInMinMaxInterval() {
+    private static void orderNumsInMinMaxInterval() {
         System.out.println("\n2. Вывод чисел в интервале (min и max) в порядке убывания");
         
         int num1 = 10;
@@ -41,38 +41,37 @@ public class CyclesTheme {
         int min = 0;
 
         if (num1 >= num2 && num1 >= num3) {
-            max = num1; 
-        } else if (num1 <= num2 && num1 <= num3) {
-            min = num1; 
+            max = num1;
+        } else if (num2 >= num1 && num2 >= num3) {
+            max = num2;
+        } else {
+            max = num3;
         }
-        if (num2 >= num1 && num2 >= num3) {
-            max = num2; 
+
+        if (num1 <= num2 && num1 <= num3) {
+            min = num1;
         } else if (num2 <= num1 && num2 <= num3) {
-            min = num2; 
-        }
-        if (num3 >= num1 && num3 >= num2) {
-            max = num3; 
-        } else if (num3 <= num1 && num3 <= num2) {
-            min = num3; 
+            min = num2;
+        } else {
+            min = num3;
         }
 
         System.out.print("Числа в интервале от " + min + " до " + max + ": ");
-        for(int i = min + 1; i < max; i++) {
-            System.out.print( i + " ");
+        for(int i = max - 1; i > min; i--) {
+            System.out.print(i + " ");
         }
         System.out.println();
     }
 
-    private static void findReversibleNumberAndDigitsSum() {
+    private static void findReversibleNumAndDigitsSum() {
         System.out.println("\n3. Вывод реверсивного числа и суммы его цифр");
         
         int num = 1234;
         int sum = 0;
-        int digit;
 
         System.out.print("Реверсивное число: ");
         while (num != 0) {
-            digit = num % 10;
+            int digit = num % 10;
             sum += digit;
             System.out.print( digit);
             num /= 10;
@@ -82,21 +81,20 @@ public class CyclesTheme {
 
     private static void displayNumsInMultipleLines() {
         System.out.println("\n4. Вывод чисел на консоль в несколько строк");
-        
-        int newLineCounter = 0;
-        int zero = 0;
+        int countNums = 0;
+        int max = 24;
 
-        for(int i = 1; i < 24; i += 2) {
+        for(int i = 1; i < max; i += 2) {
             System.out.printf("%2s ", i);
-            if (++newLineCounter == 5) {
-                newLineCounter = 0;
+            if (++countNums == 5) {
+                countNums = 0;
                 System.out.println();
             }
-        }
-
-        while (newLineCounter != 0 && newLineCounter != 5) {
-            ++newLineCounter;
-            System.out.printf("%2s ", zero);
+            if (i == max - 1) {
+                for(int j = 1; j <= 5 - countNums; j++) {
+                    System.out.printf("%2s ", 0);
+                }
+            }
         }
     }
 
@@ -105,22 +103,19 @@ public class CyclesTheme {
         
         int num = 3242592;
         System.out.print("Число " + num);
-        int currentChar;
-        int currentCharNum = 7;
-        int twosNum = 0;
+        int numTwos = 0;
 
-        while (currentCharNum != 0) {
-            currentChar = num % 10;
-            if (currentChar == 2) {
-                twosNum++;
+        while (num != 0) {
+            int digit = num % 10;
+            if (digit == 2) {
+                numTwos++;
             }
             num /= 10;
-            currentCharNum--;
         }
-        if (twosNum % 2 == 0) {
-            System.out.print(" содержит " + twosNum +" (четное) количество двоек");
+        if (numTwos % 2 == 0) {
+            System.out.print(" содержит " + numTwos +" (четное) количество двоек");
         } else {
-            System.out.print(" содержит " + twosNum +" (нечетное) количество двоек");
+            System.out.print(" содержит " + numTwos +" (нечетное) количество двоек");
         }
     }
 
