@@ -37,23 +37,19 @@ public class CyclesTheme {
         int num1 = 10;
         int num2 = 5;
         int num3 = -1;
-        int max = 0;
-        int min = 0;
+        int max = num3;
+        int min = num3;
 
         if (num1 >= num2 && num1 >= num3) {
             max = num1;
         } else if (num2 >= num1 && num2 >= num3) {
             max = num2;
-        } else {
-            max = num3;
         }
 
         if (num1 <= num2 && num1 <= num3) {
             min = num1;
         } else if (num2 <= num1 && num2 <= num3) {
             min = num2;
-        } else {
-            min = num3;
         }
 
         System.out.print("Числа в интервале от " + min + " до " + max + ": ");
@@ -90,12 +86,13 @@ public class CyclesTheme {
                 countNums = 0;
                 System.out.println();
             }
-            if (i == max - 1) {
-                for(int j = 1; j <= 5 - countNums; j++) {
-                    System.out.printf("%2s ", 0);
-                }
+        }
+        if (countNums > 0) {
+            for(; countNums < 5; countNums++) {
+                System.out.printf("%2s ", 0);
             }
         }
+
     }
 
     private static void checkIsNumOfTwosEven() {
@@ -123,10 +120,10 @@ public class CyclesTheme {
         System.out.println("\n\n6. Отображение фигур в консоли");
         
         int newLineCounter = 0;
-        int i = 0;
+        int symbNum = 0;
 
         System.out.println("\nПрямоугольник:");
-        for(i = 1; i <= 50; i++) {
+        for(symbNum = 1; symbNum <= 50; symbNum++) {
             System.out.print("*");
             if (++newLineCounter == 10) {
                 newLineCounter = 0;
@@ -135,20 +132,20 @@ public class CyclesTheme {
         }
 
         System.out.println("\nПрямоугольный треугольник:");
-        i = 1;
+        symbNum = 1;
         int newLineBorder = 5;
-        while (i <= 15) {
+        while (symbNum <= 15) {
             System.out.print("#");
             if (++newLineCounter == newLineBorder) {
                 newLineCounter = 0;
                 newLineBorder--;
                 System.out.println();
             }
-            i++;
+            symbNum++;
         }
 
         System.out.println("\nВторой треугольник:");
-        i = 1;
+        symbNum = 1;
         newLineBorder = 1;
         newLineCounter = 0;
         do {
@@ -162,8 +159,8 @@ public class CyclesTheme {
                     newLineBorder--;
                 }
             }
-            i++;
-        } while (i <= 9);
+            symbNum++;
+        } while (symbNum <= 9);
     }
 
     private static void displayAsciiChar() {
@@ -174,13 +171,21 @@ public class CyclesTheme {
         System.out.print("\nCимволы, идущие до цифр и имеющие нечетные коды");
         for(i = 0; i <= 47; i++) {
             if (i % 2 != 0) {
-                System.out.printf("\n%4s %4s", (char) i,  i);
+                if (i == 7) {
+                    System.out.printf("\n%8c %9s", i,  i);
+                } else if (i == 9) {
+                    System.out.printf("\n%8c %8s", i,  i);
+                } else if (i == 13) {
+                    System.out.printf("\n%8c %16s", i,  i);
+                } else {
+                    System.out.printf("\n%8c %8s", i,  i);
+                }
             }
         }
         System.out.print("\nМаленькие английские буквы, имеющие четные коды");
         for(i = 97; i <= 122; i++) {
             if (i % 2 == 0) {
-                System.out.printf("\n%4s %4s", (char) i,  i);
+                System.out.printf("\n%8c %8s", i,  i);
             }
         }
     }
@@ -188,17 +193,17 @@ public class CyclesTheme {
     private static void checkIsNumPalindrom() {
         System.out.println("\n\n8. Проверка, является ли число палиндромом");
         int num = 1234321;
-        int remainder, sum = 0, temp;
+        int digit, sum = 0;
         
         System.out.print("Число " + num);
         
-        temp = num;
+        int copyNum = num;
         while (num > 0) {
-            remainder = num % 10;
-            sum = (sum * 10) + remainder;
+            digit = num % 10;
+            sum = (sum * 10) + digit;
             num /= 10;
         }
-        if (temp == sum) {
+        if (copyNum == sum) {
             System.out.println(" является палиндромом");
         } else {
             System.out.println(" не является палиндромом");
@@ -208,47 +213,33 @@ public class CyclesTheme {
     private static void checkIsNumLucky() {
         System.out.println("\n9. Определение, является ли число счастливым");
         int num = 123321;
-        int digit1 = 0, digit2 = 0, digit3 = 0, digit4 = 0, digit5 = 0, digit6 = 0;
+        int part1 = num / 1000;
+        int part2 = num % 1000;;
         int currentCharNum = 0;
-        int currentChar = 0;
+        int digit = 0;
 
         int sum1 = 0, sum2 = 0;
 
         while (num != 0) {
-            currentChar = num % 10;
+            digit = num % 10;
             num /= 10;
             currentCharNum++;
             if (currentCharNum <= 3) {
-                sum1 += currentChar;
-                if (currentCharNum == 1) {
-                    digit1 = currentCharNum;
-                }
-                if (currentCharNum == 2) {
-                    digit2 = currentCharNum;
-                }
-                if (currentCharNum == 3) {
-                    digit3 = currentCharNum;
-                }
+                sum1 += digit;
             } else {
-                if (currentCharNum == 4) {
-                    digit4 = currentCharNum;
-                }
-                if (currentCharNum == 5) {
-                    digit5 = currentCharNum;
-                }
-                if (currentCharNum == 6) {
-                    digit6 = currentCharNum;
-                }
-                sum2 += currentChar;
+                sum2 += digit;
             }
         }
+        
         if (currentCharNum == 6) {
             System.out.println("Число шестизначное");
         } else {
             System.out.println("Число не шестизначное");
         }
-        System.out.println("Сумма цифр " + digit1 + digit2 + digit3 + " = " + sum1);
-        System.out.println("Сумма цифр " + digit4 + digit5 + digit6 + " = " + sum2);
+        
+        System.out.println("Сумма цифр " + part1 + " = " + sum1);
+        System.out.println("Сумма цифр " + part2 + " = " + sum2);
+        
         if (sum1 == sum2) {
             System.out.println("Число счастливое");
         } else {
@@ -269,9 +260,9 @@ public class CyclesTheme {
                 } else {
                     System.out.printf("%2d ", i * j);
                 }
-            if (j == 1) {
-                System.out.print("| ");
-            }
+                if (j == 1) {
+                    System.out.print("| ");
+                }
             }
             System.out.println();
         }
