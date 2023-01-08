@@ -1,24 +1,25 @@
 public class WolfTest {
-    public static void main(String args[]) {
-      Wolf wolfOne = new Wolf();
-      wolfOne.sex = "Мужской";
-      wolfOne.name = "Белый клык";
-      wolfOne.height = 100;
-      wolfOne.weight = 50; 
-      wolfOne.age = 5;
-      wolfOne.color = "Белый";
-      
-      System.out.println("Пол: " + wolfOne.sex);
-      System.out.println("Имя: " + wolfOne.name);
-      System.out.println("Рост: " + wolfOne.height);
-      System.out.println("Вес: " + wolfOne.weight);
-      System.out.println("Возраст: " + wolfOne.age);
-      System.out.println("Окрас: " + wolfOne.color + "\n");
-      
-      wolfOne.walk();
-      wolfOne.sit();
-      wolfOne.run();
-      wolfOne.howl();
-      wolfOne.hunt();
+    public static void main(String[] args) {
+      Wolf wolf = new Wolf();
+
+      wolf.setSex("Мужской");
+      wolf.setName("Белый клык");
+      wolf.setHeight(100);
+      wolf.setWeight(50);
+      wolf.setAge(5);
+      wolf.setColor("Белый");
+
+      System.out.println("Пол: " + wolf.getSex());
+      System.out.println("Имя: " + wolf.getName());
+      System.out.println("Рост: " + wolf.getHeight());
+      System.out.println("Вес: " + wolf.getWeight());
+      System.out.println("Возраст: " + wolf.getAge());
+      System.out.println("Окрас: " + wolf.getColor() + "\n");
+
+      wolf.walk();
+      wolf.sit();
+      wolf.run();
+      wolf.howl();
+      wolf.hunt();
     }
 }
