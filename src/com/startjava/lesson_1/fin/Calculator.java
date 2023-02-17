@@ -1,3 +1,5 @@
+package com.startjava.lesson_1.fin;
+
 public class Calculator {
 
     private static int num1 = 10, num2 = 3, result;
