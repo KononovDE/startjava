@@ -1,24 +1,19 @@
-package com.startjava.lesson_2_3.calculator;
+package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    private int num1;
-    private int num2;
-    private int result;
+    private double num1;
+    private double num2;
+    private double result;
     private char sign;
 
-    public void setSign(char sign) {
-        this.sign = sign;
+    public void split(String line) {
+        String[] words = line.split(" ");
+        num1 = Integer.parseInt( words[0]);
+        sign = words[1].charAt(0);
+        num2 = Integer.parseInt( words[2]);
     }
 
-    public void setNum1(int num1) {
-        this.num1 = num1;
-    }
-
-    public void setNum2(int num2) {
-        this.num2 = num2;
-    }
-
-    public void calculate() {
+    public double calculate() {
         switch (sign) {
             case '+':
                 result = num1 + num2;
@@ -33,7 +28,7 @@ public class Calculator {
                 result = num1 / num2;
                 break;
             case '^':
-                pow();
+                result = Math.pow(num1, num2);
                 break;
             case '%':
                 result = num1 % num2;
@@ -41,13 +36,6 @@ public class Calculator {
             default:
                 System.out.println("Математическая операция " + sign + " не поддерживается");
         }
-        System.out.println("Результат: " + num1 + " " + sign + " " + num2 + " = " + result);
-    }
-
-    private void pow() {
-        result = num1;
-        for(int i = 1; i < num2; i++) {
-            result *= num1;
-        }
+        return result;
     }
 }
