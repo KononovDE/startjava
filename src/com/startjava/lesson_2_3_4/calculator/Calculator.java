@@ -8,9 +8,9 @@ public class Calculator {
 
     public void split(String line) {
         String[] words = line.split(" ");
-        num1 = Integer.parseInt( words[0]);
+        num1 = Integer.parseInt(words[0]);
         sign = words[1].charAt(0);
-        num2 = Integer.parseInt( words[2]);
+        num2 = Integer.parseInt(words[2]);
     }
 
     public double calculate() {
