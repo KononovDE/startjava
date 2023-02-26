@@ -6,33 +6,28 @@ public class Calculator {
     private double result;
     private char sign;
 
-    public void split(String line) {
-        String[] words = line.split(" ");
-        num1 = Integer.parseInt(words[0]);
-        sign = words[1].charAt(0);
-        num2 = Integer.parseInt(words[2]);
+    public void split(String expression) {
+        String[] partsExpression = expression.split(" ");
+        num1 = Integer.parseInt(partsExpression[0]);
+        sign = partsExpression[1].charAt(0);
+        num2 = Integer.parseInt(partsExpression[2]);
     }
 
-    public double calculate() {
+    public double calculate(String expression) {
+        split(expression);
         switch (sign) {
             case '+':
-                result = num1 + num2;
-                break;
+                return num1 + num2;
             case '-':
-                result = num1 - num2;
-                break;
+                return num1 - num2;
             case '*':
-                result = num1 * num2;
-                break;
+                return num1 * num2;
             case '/':
-                result = num1 / num2;
-                break;
+                return num1 / num2;
             case '^':
-                result = Math.pow(num1, num2);
-                break;
+                return Math.pow(num1, num2);
             case '%':
-                result = num1 % num2;
-                break;
+                return num1 % num2;
             default:
                 System.out.println("Математическая операция " + sign + " не поддерживается");
         }
