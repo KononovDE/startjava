@@ -3,7 +3,6 @@ package com.startjava.lesson_2_3_4.calculator;
 public class Calculator {
     private double num1;
     private double num2;
-    private double result;
     private char sign;
 
     public void split(String expression) {
@@ -31,6 +30,6 @@ public class Calculator {
             default:
                 System.out.println("Математическая операция " + sign + " не поддерживается");
         }
-        return result;
+        return 0;
     }
 }
