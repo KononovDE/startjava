@@ -9,21 +9,29 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        Arrays.fill(nums, 0);
     }
     public String getName() {
         return name;
     }
+
     public int[] getNums() {
-        return nums;
+        int [] numsCopy = Arrays.copyOfRange(nums, 0, currentTry);
+        return numsCopy;
     }
-    public void setNums(int[] nums) {
-        this.nums = nums;
+
+    public void setNums(int num) {
+        nums[currentTry - 1] = num;
     }
+
     public int getCurrentTry() {
         return currentTry;
     }
+
     public void setCurrentTry(int currentTry) {
         this.currentTry = currentTry;
+    }
+
+    public void clearArray() {
+        Arrays.fill(nums, 0);
     }
 }
