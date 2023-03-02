@@ -23,7 +23,6 @@ public class GuessNumber {
         int hiddenNum = 0;
         Scanner scanner =  new Scanner(System.in);
         hiddenNum = (int) (Math.random() * 100) + 1;
-        System.out.println("Угадывается " + hiddenNum);
 //      Всегда начинает первый игрок
         if (currentPlayer == player2) {
             changePlayer();
@@ -31,9 +30,6 @@ public class GuessNumber {
 
         while ((player1.getCurrentTry() != 10) || (player2.getCurrentTry() != 10)) {
             incrementTry();
-            System.out.println("Попытка 1: " + player1.getCurrentTry());
-            System.out.println("Попытка 2: " + player2.getCurrentTry());
-
             System.out.println("Угадывает " + currentPlayer.getName());
             System.out.println("Попытка " + currentPlayer.getCurrentTry());
             playerNum = scanner.nextInt();
@@ -74,29 +70,25 @@ public class GuessNumber {
 
     public void addNum(int num) {
         if (currentPlayer == player1) {
-            int [] nums = player1.getNums();
-            nums[player1.getCurrentTry() - 1] = num;
-            player1.setNums(nums);
+            player1.setNums(num);
             currentPlayer = player1;
         } else {
-            int [] nums = player2.getNums();
-            nums[player2.getCurrentTry() - 1] = num;
-            player2.setNums(nums);
+            player2.setNums(num);
             currentPlayer = player2;
         }
     }
 
     public void printNums() {
-        int [] numsCopy = Arrays.copyOfRange(player1.getNums(), 0, player1.getCurrentTry());
+        int [] numsCopy = player1.getNums();
         System.out.println("Числа игрока " + player1.getName() + ": " + Arrays.toString(numsCopy));
-        System.out.println("Попытка 1" + player1.getCurrentTry());
-        numsCopy = Arrays.copyOfRange(player2.getNums(), 0, player2.getCurrentTry());
-        System.out.println("Числа игрока " + player2.getName() + ": " + Arrays.toString(numsCopy));
-        System.out.println("Попытка 2" + player2.getCurrentTry());
+        if (player2.getCurrentTry() > 0) {
+            numsCopy = player2.getNums();
+            System.out.println("Числа игрока " + player2.getName() + ": " + Arrays.toString(numsCopy));
+        }
     }
 
     public void clearArrays() {
-        Arrays.fill(player1.getNums(), 0, player1.getCurrentTry() - 1, 0);
-        Arrays.fill(player2.getNums(), 0, player2.getCurrentTry() - 1, 0);
+        player1.clearArray();
+        player2.clearArray();
     }
 }
