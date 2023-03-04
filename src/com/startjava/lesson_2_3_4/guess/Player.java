@@ -15,11 +15,10 @@ public class Player {
     }
 
     public int[] getNums() {
-        int [] numsCopy = Arrays.copyOfRange(nums, 0, currentTry);
-        return numsCopy;
+        return Arrays.copyOfRange(nums, 0, currentTry);
     }
 
-    public void setNums(int num) {
+    public void addNum(int num) {
         nums[currentTry - 1] = num;
     }
 
@@ -31,7 +30,8 @@ public class Player {
         this.currentTry = currentTry;
     }
 
-    public void clearArray() {
-        Arrays.fill(nums, 0);
+    public void clearTry() {
+        Arrays.fill(nums, 0, currentTry, 0);
+        setCurrentTry(0);
     }
 }
