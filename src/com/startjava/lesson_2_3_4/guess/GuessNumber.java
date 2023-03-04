@@ -6,29 +6,28 @@ import java.util.Scanner;
 
 public class GuessNumber {
 
-    private Player player1;
-    private Player player2;
+    private Player[] players = new Player[2];
+
     private Player currentPlayer;
 
     public GuessNumber(Player player1, Player player2) {
-        this.player1 = currentPlayer = player1;
-        this.player2 = player2;
+        players[0] = player1;
+        currentPlayer = player1;
+        players[1] = player2;
     }
 
     public void start() {
         System.out.println("У каждого игрока по 10 попыток");
-        player1.setCurrentTry(0);
-        player2.setCurrentTry(0);
+        setTries(0);
         int playerNum = 0;
-        int hiddenNum = 0;
+        int hiddenNum = (int) (Math.random() * 100) + 1;
         Scanner scanner =  new Scanner(System.in);
-        hiddenNum = (int) (Math.random() * 100) + 1;
 //      Всегда начинает первый игрок
-        if (currentPlayer == player2) {
+        while (currentPlayer != players[0]) {
             changePlayer();
         }
-
-        while ((player1.getCurrentTry() != 10) || (player2.getCurrentTry() != 10)) {
+        System.out.println(hiddenNum);
+        while (isEndGame() == false) {
             incrementTry();
             System.out.println("Угадывает " + currentPlayer.getName());
             System.out.println("Попытка " + currentPlayer.getCurrentTry());
@@ -49,46 +48,61 @@ public class GuessNumber {
             changePlayer();
         }
         printNums();
-        clearArrays();
+        clearTries();
     }
 
     public void changePlayer() {
-        currentPlayer = currentPlayer == player1 ? player2 : player1;
+        currentPlayer = currentPlayer == players[0] ? players[1] : players[0];
     }
 
     public void incrementTry() {
-        if (currentPlayer == player1) {
-            int currentTry = player1.getCurrentTry();
-            player1.setCurrentTry(currentTry + 1);
-            currentPlayer = player1;
-        } else {
-            int currentTry = player2.getCurrentTry();
-            player2.setCurrentTry(currentTry + 1);
-            currentPlayer = player2;
+        for (Player player : players ) {
+            if (currentPlayer == player) {
+                int currentTry = player.getCurrentTry();
+                player.setCurrentTry(currentTry + 1);
+                break;
+            }
         }
     }
 
     public void addNum(int num) {
-        if (currentPlayer == player1) {
-            player1.setNums(num);
-            currentPlayer = player1;
-        } else {
-            player2.setNums(num);
-            currentPlayer = player2;
+        for (Player player : players ) {
+            if (currentPlayer == player) {
+                player.addNum(num);
+                break;
+            }
         }
     }
 
     public void printNums() {
-        int [] numsCopy = player1.getNums();
-        System.out.println("Числа игрока " + player1.getName() + ": " + Arrays.toString(numsCopy));
-        if (player2.getCurrentTry() > 0) {
-            numsCopy = player2.getNums();
-            System.out.println("Числа игрока " + player2.getName() + ": " + Arrays.toString(numsCopy));
+        for (Player player : players ) {
+            int[] numsCopy = player.getNums();
+            System.out.print("Числа игрока " + player.getName() + ": ");
+            for (int num : numsCopy ) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
         }
     }
 
-    public void clearArrays() {
-        player1.clearArray();
-        player2.clearArray();
+    public void clearTries() {
+        for (Player player : players ) {
+            player.clearTry();
+        }
+    }
+
+    public void setTries(int num) {
+        for (Player player : players ) {
+            player.setCurrentTry(num);
+        }
+    }
+
+    public boolean isEndGame() {
+        for (Player player : players ) {
+            if (player.getCurrentTry() != 10) {
+                return false;
+            }
+        }
+        return true;
     }
 }
