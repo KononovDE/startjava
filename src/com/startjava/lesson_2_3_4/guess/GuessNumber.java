@@ -26,7 +26,6 @@ public class GuessNumber {
         while (currentPlayer != players[0]) {
             changePlayer();
         }
-        System.out.println(hiddenNum);
         while (isEndGame() == false) {
             incrementTry();
             System.out.println("Угадывает " + currentPlayer.getName());
