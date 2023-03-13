@@ -14,7 +14,11 @@ public class GuessNumberTest {
         name = scanner.nextLine();
         Player player2 = new Player(name);
 
-        GuessNumber game = new GuessNumber(player1, player2);
+        System.out.println("Введите имя третьего игрока");
+        name = scanner.nextLine();
+        Player player3 = new Player(name);
+
+        GuessNumber game = new GuessNumber(3, player1, player2, player3);
         String answer = "yes";
         do {
             if (answer.equals("yes")) {
