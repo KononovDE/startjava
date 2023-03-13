@@ -1,26 +1,64 @@
-package com.startjava.lesson_2_3_4.array;
+package com.startjava.lesson_2_3_4.guess;
 
-public class ArrayMain {
+import java.util.Arrays;
 
-    public static void main(String[] args) {
+import java.util.Scanner;
 
-        int [] numbers = new int[6];
-        float[] numbers1 = {5.1f, .5f, 200.5f};
-        System.out.println(numbers.length);
-        System.out.println(numbers1.length);
+public class Player {
+    private String name;
+    private int[] nums = new int[10];
+    private int currentTry = 1;
+    private int currentNum;
+    private int wins = 0;
 
-        for(int i = 0; i < numbers.length; i++) {
-            numbers[i] = i * 10;
+    public Player(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public int[] getNums() {
+        return Arrays.copyOf(nums, currentTry - 1);
+    }
+
+    public void addNum(int num) {
+        setCurrentNum(num);
+        nums[currentTry - 1] = currentNum;
+        currentTry = currentTry + 1;
+    }
+
+    public int getCurrentTry() {
+        return currentTry;
+    }
+
+    public void clearTries() {
+        Arrays.fill(nums, 0, currentTry - 1, 0);
+        this.currentTry = 1;
+    }
+
+    public void setCurrentNum(int num) {
+        Scanner scanner =  new Scanner(System.in);
+        while (num <= 0 || num > 100) {
+            System.out.println("Число " + num + " не входит в полуинтервал (0, 100]");
+            num = scanner.nextInt();
         }
+        currentNum = num;
+    }
 
-        for(int i = 0; i < numbers1.length; i++) {
-            System.out.print(numbers1[i] + " ");
-        }
+    public int getCurrentNum() {
+        return currentNum;
+    }
 
-        String[] text = new String[3];
+    public void addWin() {
+        wins++;
+    }
 
-        for(String string: text) {
-            System.out.println(string);
-        }
+    public int getWins() {
+        return wins;
+    }
+
+    public void clearWins() {
+        wins = 0;
     }
 }
