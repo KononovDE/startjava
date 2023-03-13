@@ -1,37 +1,26 @@
-package com.startjava.lesson_2_3_4.guess;
+package com.startjava.lesson_2_3_4.array;
 
-import java.util.Arrays;
+public class ArrayMain {
 
-public class Player {
-    private String name;
-    private int[] nums = new int[10];
-    private int currentTry;
+    public static void main(String[] args) {
 
-    public Player(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
+        int [] numbers = new int[6];
+        float[] numbers1 = {5.1f, .5f, 200.5f};
+        System.out.println(numbers.length);
+        System.out.println(numbers1.length);
 
-    public int[] getNums() {
-        return Arrays.copyOfRange(nums, 0, currentTry);
-    }
+        for(int i = 0; i < numbers.length; i++) {
+            numbers[i] = i * 10;
+        }
 
-    public void addNum(int num) {
-        nums[currentTry - 1] = num;
-    }
+        for(int i = 0; i < numbers1.length; i++) {
+            System.out.print(numbers1[i] + " ");
+        }
 
-    public int getCurrentTry() {
-        return currentTry;
-    }
+        String[] text = new String[3];
 
-    public void setCurrentTry(int currentTry) {
-        this.currentTry = currentTry;
-    }
-
-    public void clearTry() {
-        Arrays.fill(nums, 0, currentTry, 0);
-        setCurrentTry(0);
+        for(String string: text) {
+            System.out.println(string);
+        }
     }
 }
