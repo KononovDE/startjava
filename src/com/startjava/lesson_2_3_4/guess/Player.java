@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Player {
+    
     private String name;
     private int[] nums = new int[10];
     private int currentTry;
