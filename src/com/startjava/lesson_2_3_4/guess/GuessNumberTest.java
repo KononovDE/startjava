@@ -9,11 +9,11 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scanner =  new Scanner(System.in);
 
-        Player player1 = createPlayer();
-        Player player2 = createPlayer();
-        Player player3 = createPlayer();
+        Player player1 = createPlayer(scanner);
+        Player player2 = createPlayer(scanner);
+        Player player3 = createPlayer(scanner);
 
-        GuessNumber game = new GuessNumber(3, player1, player2, player3);
+        GuessNumber game = new GuessNumber(playerNum, player1, player2, player3);
         String answer = "yes";
         do {
             if (answer.equals("yes")) {
@@ -24,11 +24,8 @@ public class GuessNumberTest {
         } while (!answer.equals("no"));
     }
 
-    private static Player createPlayer() {
-        playerNum++;
-        System.out.println("Введите имя игрока " + playerNum);
-        Scanner scanner =  new Scanner(System.in);
-        Player player = new Player(scanner.nextLine());
-        return player;
+    private static Player createPlayer(Scanner scanner) {
+        System.out.println("Введите имя игрока " + ++playerNum);
+        return new Player(scanner.nextLine());
     }
 }
