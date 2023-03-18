@@ -5,11 +5,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Player {
-    
+
     private String name;
     private int[] nums = new int[10];
     private int currentTry;
-    private int wins;
+    private int score;
+    private static final int minHiddenNum = 1;
+    private static final int maxHiddenNum = 100;
 
     public Player(String name) {
         this.name = name;
@@ -23,25 +25,20 @@ public class Player {
         return currentTry + 1;
     }
 
-    public int getCurrentNum() {
-        return nums[currentTry];
-    }
-
-    public void addNum(int num) {
-        Scanner scanner =  new Scanner(System.in);
-        if (num <= 0 || num > 100) {
-            System.out.println("Число " + num + " не входит в полуинтервал (0, 100]");
+    public boolean addNums(int num) {
+        if (num < minHiddenNum || num > maxHiddenNum) {
+            System.out.println("Число " + num + " не входит в полуинтервал (" + (minHiddenNum - 1) +
+                    ", " + maxHiddenNum + "]");
+            return false;
         } else {
             nums[currentTry] = num;
+            currentTry++;
+            return true;
         }
     }
 
-    public void incrementWin() {
-        wins++;
-    }
-
-    public void incrementCurrentTry() {
-        currentTry++;
+    public int getCurrentNum() {
+        return nums[currentTry - 1];
     }
 
     public int[] getNums() {
@@ -53,11 +50,15 @@ public class Player {
         currentTry = 0;
     }
 
-    public int getWins() {
-        return wins;
+    public int getScore() {
+        return score;
     }
 
-    public void clearWins() {
-        wins = 0;
+    public void incrementScore() {
+        score++;
+    }
+
+    public void clearScore() {
+        score = 0;
     }
 }
