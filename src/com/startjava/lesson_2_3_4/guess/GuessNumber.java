@@ -4,28 +4,19 @@ import java.util.Scanner;
 
 public class GuessNumber {
 
-    private static final int maxPlayers = 3;
-    private static final int maxRounds = 3;
-    private static final int maxTries = 10;
-    private static final int minHiddenNum = 1;
-    private static final int maxHiddenNum = 100;
-    private final Player[] players = new Player[maxPlayers];
-    private Player currentPlayer;
-    
+    private static final int CAPACITY = 3;
+    private static final int ROUND_LIMIT = 3;
+    private static final int MAX_TRIES = 10;
+    private static final int START_RANGE = 1;
+    private static final int END_RANGE = 100;
+    private Player[] players = new Player[CAPACITY];
+
     public GuessNumber(int arraySize, Player... players) {
-        int[] order = new int[arraySize];
-        for(int i = 0; i < arraySize; i++) {
-            order[i] = i + 1;
-        }
-
-        this.players[0] = players[0];
-        this.players[1] = players[1];
-        this.players[2] = players[2];
-
-        tossUp(arraySize);
+        this.players = players;
+        castLots(arraySize);
     }
 
-    private void tossUp(int arraySize) {
+    private void castLots(int arraySize) {
         for(int i = 0; i < arraySize; i++) {
             int randomNum = (int) (Math.random() * arraySize) + 1;
             Player swap = players[i];
@@ -41,28 +32,12 @@ public class GuessNumber {
         Scanner scanner = new Scanner(System.in);
 
         int round = 0;
-        while (round < maxRounds) {
-            currentPlayer = players[0];
-            int hiddenNum = (int) (Math.random() * maxHiddenNum) + minHiddenNum;
-            System.out.println("Угадываетcя " + hiddenNum);
+        while (round < ROUND_LIMIT) {
             round++;
             System.out.println("\nРаунд " + round);
-            while (!isEndRound()) {
-                System.out.println("Угадывает " + currentPlayer.getName());
-                System.out.println("Попытка " + currentPlayer.getCurrentTry());
-                while (currentPlayer.addNums(scanner.nextInt()) == false) {
-                }
-                if (isCurrentNumRight(hiddenNum)) {
-                    System.out.println("Игрок " + currentPlayer.getName() + " угадал число " +
-                            currentPlayer.getCurrentNum() + " с " + (currentPlayer.getCurrentTry() - 1) + " попытки");
-                    currentPlayer.incrementScore();
-                    break;
-                }
-                if (currentPlayer.getCurrentTry() == maxTries + 1) {
-                    System.out.println("У " + currentPlayer.getName() + " закончились попытки");
-                }
-                changePlayer();
-            }
+            int hiddenNum = (int) (Math.random() * END_RANGE) + START_RANGE;
+            System.out.println("Угадываетcя " + hiddenNum);
+            start_round(scanner, hiddenNum);
             printNums();
             clearTries();
         }
@@ -70,27 +45,43 @@ public class GuessNumber {
         clearScore();
     }
 
+    private void start_round(Scanner scanner, int hiddenNum) {
+        while (!isEndRound()) {
+            for(int i = 0; i < CAPACITY; i++) {
+
+                System.out.println("Угадывает " + players[i].getName());
+                System.out.println("Попытка " + players[i].getCurrentTry());
+                while (players[i].addNum(scanner.nextInt()) == false) {
+                }
+                if (isGuessed(i, hiddenNum)) {
+                    System.out.println("Игрок " + players[i].getName() + " угадал число " +
+                            players[i].getCurrentNum() + " с " + (players[i].getCurrentTry() - 1) + " попытки");
+                    players[i].incrementScore();
+                    return;
+                }
+                if (players[i].getCurrentTry() == MAX_TRIES + 1) {
+                    System.out.println("У " + players[i].getName() + " закончились попытки");
+                }
+            }
+        }
+    }
+
     private boolean isEndRound() {
         for (Player player : players) {
-            if (player.getCurrentTry() != maxTries + 1) {
+            if (player.getCurrentTry() != MAX_TRIES + 1) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean isCurrentNumRight(int hiddenNum) {
-        if (currentPlayer.getCurrentNum() == hiddenNum) {
+    private boolean isGuessed(int playerNum, int hiddenNum) {
+        if (players[playerNum].getCurrentNum() == hiddenNum) {
             return true;
         }
-        String numState = (currentPlayer.getCurrentNum() > hiddenNum) ? " больше " : " меньше ";
-        System.out.println("Число " + currentPlayer.getCurrentNum() + numState + "того, что загадал компьютер");
+        String numState = (players[playerNum].getCurrentNum() > hiddenNum) ? " больше " : " меньше ";
+        System.out.println("Число " + players[playerNum].getCurrentNum() + numState + "того, что загадал компьютер");
         return false;
-    }
-
-    private void changePlayer() {
-        currentPlayer = currentPlayer == players[0] ? players[1] : currentPlayer == players[1] ? players[2] :
-                players[0];
     }
 
     private void printNums() {
@@ -111,23 +102,24 @@ public class GuessNumber {
     }
 
     private void printWinner() {
+        Player winner = players[0];
         int maxWins = 0;
         for (Player player : players) {
             if (player.getScore() > maxWins) {
                 maxWins = player.getScore();
-                currentPlayer = player;
+                winner = player;
             }
         }
 
 //      Если несколько игроков c наибольшими победами
         for (Player player : players) {
-            if (player.getScore() == currentPlayer.getScore() && player != currentPlayer) {
+            if (player.getScore() == winner.getScore() && player != winner) {
                 System.out.println("Нет итогового победителя");
                 return;
             }
         }
-        System.out.println("Итоговый победитель: " + currentPlayer.getName() + " c " + currentPlayer.getScore() +
-                " победами");
+        System.out.println("Итоговый победитель: " + winner.getName() + " c " +
+                winner.getScore() + " победами");
     }
 
     private void clearScore() {
