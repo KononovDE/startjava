@@ -2,16 +2,14 @@ package com.startjava.lesson_2_3_4.guess;
 
 import java.util.Arrays;
 
-import java.util.Scanner;
-
 public class Player {
 
+    private static final int START_RANGE = 1;
+    private static final int END_RANGE = 100;
     private String name;
     private int[] nums = new int[10];
     private int currentTry;
     private int score;
-    private static final int minHiddenNum = 1;
-    private static final int maxHiddenNum = 100;
 
     public Player(String name) {
         this.name = name;
@@ -25,16 +23,15 @@ public class Player {
         return currentTry + 1;
     }
 
-    public boolean addNums(int num) {
-        if (num < minHiddenNum || num > maxHiddenNum) {
-            System.out.println("Число " + num + " не входит в полуинтервал (" + (minHiddenNum - 1) +
-                    ", " + maxHiddenNum + "]");
+    public boolean addNum(int num) {
+        if (num < START_RANGE || num > END_RANGE) {
+            System.out.println("Число " + num + " не входит в полуинтервал (" + (START_RANGE - 1) +
+                    ", " + END_RANGE + "]");
             return false;
-        } else {
-            nums[currentTry] = num;
-            currentTry++;
-            return true;
         }
+        nums[currentTry] = num;
+        currentTry++;
+        return true;
     }
 
     public int getCurrentNum() {
