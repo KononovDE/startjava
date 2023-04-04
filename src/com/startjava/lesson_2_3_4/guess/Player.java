@@ -15,6 +15,9 @@ public class Player {
         this.name = name;
     }
 
+    public String toString() {
+        return getName();
+    }
     public String getName() {
         return name;
     }
@@ -25,8 +28,6 @@ public class Player {
 
     public boolean addNum(int num) {
         if (num < START_RANGE || num > END_RANGE) {
-            System.out.println("Число " + num + " не входит в полуинтервал (" + (START_RANGE - 1) +
-                    ", " + END_RANGE + "]");
             return false;
         }
         nums[currentTry] = num;
