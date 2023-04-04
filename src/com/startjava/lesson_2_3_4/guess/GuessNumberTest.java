@@ -13,7 +13,7 @@ public class GuessNumberTest {
         Player player2 = createPlayer(scanner);
         Player player3 = createPlayer(scanner);
 
-        GuessNumber game = new GuessNumber(playerNum, player1, player2, player3);
+        GuessNumber game = new GuessNumber(player1, player2, player3);
         String answer = "yes";
         do {
             if (answer.equals("yes")) {
