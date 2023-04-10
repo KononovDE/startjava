@@ -4,10 +4,11 @@ import java.util.Arrays;
 
 public class Player {
 
-    private static final int START_RANGE = 1;
-    private static final int END_RANGE = 100;
+    public static final int MAX_TRIES = 10;
+    public static final int START_RANGE = 1;
+    public static final int END_RANGE = 100;
     private String name;
-    private int[] nums = new int[10];
+    private int[] nums = new int[MAX_TRIES];
     private int currentTry;
     private int score;
 
@@ -15,15 +16,8 @@ public class Player {
         this.name = name;
     }
 
-    public String toString() {
-        return getName();
-    }
     public String getName() {
         return name;
-    }
-
-    public int getCurrentTry() {
-        return currentTry + 1;
     }
 
     public boolean addNum(int num) {
@@ -43,6 +37,10 @@ public class Player {
         return Arrays.copyOf(nums, currentTry);
     }
 
+    public int getCurrentTry() {
+        return currentTry + 1;
+    }
+
     public void clearTries() {
         Arrays.fill(nums, 0, currentTry, 0);
         currentTry = 0;
@@ -58,5 +56,9 @@ public class Player {
 
     public void clearScore() {
         score = 0;
+    }
+
+    public String toString() {
+        return getName();
     }
 }
