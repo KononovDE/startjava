@@ -2,39 +2,36 @@ package com.startjava.lesson_2_3_4.array;
 
 import java.util.Arrays;
 
-import java.math.BigDecimal;
-
 public class ArrayTheme {
 
-    private static int[] intArr = new int[30];
-
     public static void main(String[] args) {
-        arrayReverse();
+        reverseArr();
         printMultiplication();
-        deleteArrayElements();
-        printReversedArray();
+        deleteArrElements();
+        printReversedArr();
         generateUniqueNums();
-        CopyFilledLines();
+        copyFilledLines();
     }
 
-    public static void arrayReverse() {
+    public static void reverseArr() {
         System.out.println("1. Реверс значений массива");
-        int[] intArr = {3, 1, 5, 7};
-        int lenght = intArr.length - 1;
+        int[] intArr = {3, 1, 5, 7, 2, 6, 4};
+        int lenght = intArr.length;
         System.out.println("Исходный порядок: ");
-        printArr(intArr);
+        print(intArr);
 
         for(int i = 0; i <= lenght / 2; i++) {
+            lenght--;
             int swap = intArr[i];
-            intArr[i] = intArr[lenght - i];
-            intArr[lenght - i] = swap;
+            intArr[i] = intArr[lenght];
+            intArr[lenght] = swap;
         }
 
         System.out.println("Обратный порядок: ");
-        printArr(intArr);
+        print(intArr);
     }
 
-    private static void printArr(int intArr[]) {
+    private static void print(int intArr[]) {
         for (int num : intArr ) {
             System.out.print(num + " ");
         }
@@ -43,61 +40,71 @@ public class ArrayTheme {
 
     public static void printMultiplication() {
         System.out.println("\n2. Вывод произведения элементов массива");
-        int[] intArr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] multipliedNums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         int index = 0;
         int result = 1;
+
         String text = "Не участвуют в произведении: ";
-        for (int num : intArr) {
+        for (int num : multipliedNums) {
             if ((num == 0)||(num == 9)) {
                 text = text + num + "[" + index + "] ";
             } else {
-                System.out.print(num == 8 ? index : index + " * ");
-                result = result * num;
+                System.out.print(num + (num == multipliedNums[multipliedNums.length - 2] ? " = " : " * "));
+                result *= num;
             }
             index++;
         }
-        System.out.println(" = " + result);
+        System.out.println(result);
         System.out.println(text);
     }
 
-    public static void deleteArrayElements() {
+    public static void deleteArrElements() {
         System.out.println("\n3. Удаление элементов массива");
         double[] doubleArr = new double[15];
         int lenght = doubleArr.length;
-        int middleIndex = (int) Math.floor(lenght / 2);
-        System.out.println("Исходный массив:");
+        int middleIndex = lenght / 2;
         for (int i = 0; i < lenght; i++) {
             doubleArr[i] = Math.random();
-            System.out.print(BigDecimal.valueOf(doubleArr[i]).setScale(3, BigDecimal.ROUND_HALF_UP) + " ");
-            lineBreakIfNeeded(i, middleIndex);
         }
 
+        System.out.println("Исходный массив:");
+        printDouble(doubleArr, middleIndex);
         System.out.println();
+
         int zeroedCells = 0;
-        System.out.println("Измененный массив:");
-        for (int i = 0; i < doubleArr.length; i++) {
+        for (int i = 0; i < lenght; i++) {
             if (doubleArr[middleIndex] < doubleArr[i]) {
                 doubleArr[i] = 0;
                 zeroedCells++;
-                  System.out.printf("%7s ", BigDecimal.valueOf(doubleArr[i]).setScale(0,
-                          BigDecimal.ROUND_HALF_UP) + " ");
-            } else {
-                System.out.printf("%7s ", BigDecimal.valueOf(doubleArr[i]).setScale(3, BigDecimal.ROUND_HALF_UP) + " ");
             }
-            lineBreakIfNeeded(i, middleIndex);
         }
+
+        System.out.println("Измененный массив:");
+        printDouble(doubleArr, middleIndex);
         System.out.println("\nКоличество обнуленных ячеек: " + zeroedCells);
     }
 
-    private static void lineBreakIfNeeded(int index, int middleIndex) {
-        if (index == middleIndex) {
-            System.out.println();
+    private static void printDouble(double[] doubleArr, int middleIndex) {
+        int index = 0;
+        for (double num : doubleArr) {
+            if (num == 0) {
+                System.out.printf(" %5.0f ", num);
+            } else {
+                System.out.printf(" %5.3f ", num);
+            }
+            if (index++ == middleIndex) {
+                System.out.println();
+            }
         }
     }
 
-    public static void printReversedArray() {
+    public static void printReversedArr() {
         System.out.println("\n4. Вывод элементов массива лесенкой в обратном порядке");
-        char[] alphabet = new String("ABCDEFGHIJKLMNOPQRSTUVWXYZ").toCharArray();
+        char[] alphabet = new char[26];
+        for (char c = 'A'; c <= 'Z'; c++) {
+            alphabet[c - 'A'] = c;
+        }
+
         int lenght = alphabet.length - 1;
         for (int i = lenght; i >= 0; i--) {
             for (int j = lenght; j >= i; j--) {
@@ -109,8 +116,9 @@ public class ArrayTheme {
 
     public static void generateUniqueNums() {
         System.out.println("\n5. Генерация уникальных чисел");
+        int[] intArr = new int[30];
         for (int i = 0; i < intArr.length; i++) {
-            while (!addNewNum((int) (Math.random() * 40) + 60)) {
+            while (!addNewNum(intArr, (int) (Math.random() * 40) + 60)) {
                 System.out.println("Произошло совпадение");
             }
         }
@@ -124,7 +132,7 @@ public class ArrayTheme {
         }
     }
 
-    private static boolean addNewNum(int num) {
+    private static boolean addNewNum(int[] intArr, int num) {
         for (int i = 0; i < intArr.length; i++) {
             if (intArr[i] == 0) {
                 intArr[i] = num;
@@ -136,7 +144,7 @@ public class ArrayTheme {
         return true;
     }
 
-    public static void CopyFilledLines() {
+    public static void copyFilledLines() {
         System.out.println("\n6. Копирование не пустых строк");
         String[] stringArr = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
 //        Варианты тестирования:
