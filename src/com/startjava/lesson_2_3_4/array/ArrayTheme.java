@@ -21,9 +21,8 @@ public class ArrayTheme {
         print(intArr);
 
         for(int i = 0; i <= lenght / 2; i++) {
-            lenght--;
             int swap = intArr[i];
-            intArr[i] = intArr[lenght];
+            intArr[i] = intArr[--lenght];
             intArr[lenght] = swap;
         }
 
@@ -31,8 +30,8 @@ public class ArrayTheme {
         print(intArr);
     }
 
-    private static void print(int intArr[]) {
-        for (int num : intArr ) {
+    private static void print(int[] intArr) {
+        for (int num : intArr) {
             System.out.print(num + " ");
         }
         System.out.println();
@@ -40,10 +39,13 @@ public class ArrayTheme {
 
     public static void printMultiplication() {
         System.out.println("\n2. Вывод произведения элементов массива");
-        int[] multipliedNums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] multipliedNums = new int[10];
+        for (int i = 0; i < 10; i++) {
+            multipliedNums[i] = i;
+        }
+
         int index = 0;
         int result = 1;
-
         String text = "Не участвуют в произведении: ";
         for (int num : multipliedNums) {
             if ((num == 0)||(num == 9)) {
@@ -62,36 +64,32 @@ public class ArrayTheme {
         System.out.println("\n3. Удаление элементов массива");
         double[] doubleArr = new double[15];
         int lenght = doubleArr.length;
-        int middleIndex = lenght / 2;
         for (int i = 0; i < lenght; i++) {
             doubleArr[i] = Math.random();
         }
 
         System.out.println("Исходный массив:");
-        printDouble(doubleArr, middleIndex);
+        int middleIndex = lenght / 2;
+        print(doubleArr, middleIndex);
         System.out.println();
 
         int zeroedCells = 0;
         for (int i = 0; i < lenght; i++) {
-            if (doubleArr[middleIndex] < doubleArr[i]) {
+            if (doubleArr[i] > doubleArr[middleIndex]) {
                 doubleArr[i] = 0;
                 zeroedCells++;
             }
         }
 
         System.out.println("Измененный массив:");
-        printDouble(doubleArr, middleIndex);
+        print(doubleArr, middleIndex);
         System.out.println("\nКоличество обнуленных ячеек: " + zeroedCells);
     }
 
-    private static void printDouble(double[] doubleArr, int middleIndex) {
+    private static void print(double[] doubleArr, int middleIndex) {
         int index = 0;
         for (double num : doubleArr) {
-            if (num == 0) {
-                System.out.printf(" %5.0f ", num);
-            } else {
-                System.out.printf(" %5.3f ", num);
-            }
+            System.out.printf(" %5.3f ", num);
             if (index++ == middleIndex) {
                 System.out.println();
             }
@@ -116,15 +114,13 @@ public class ArrayTheme {
 
     public static void generateUniqueNums() {
         System.out.println("\n5. Генерация уникальных чисел");
-        int[] intArr = new int[30];
-        for (int i = 0; i < intArr.length; i++) {
-            while (!addNewNum(intArr, (int) (Math.random() * 40) + 60)) {
-                System.out.println("Произошло совпадение");
-            }
+        int[] uniqNums = new int[30];
+        for (int i = 0; i < uniqNums.length; i++) {
+            while (!isUniq(uniqNums, (int) (Math.random() * 40) + 60));
         }
-        Arrays.sort(intArr);
+        Arrays.sort(uniqNums);
         int index = 1;
-        for (int num : intArr) {
+        for (int num : uniqNums) {
             System.out.print(num + " ");
             if (index++ % 10 == 0) {
                 System.out.println();
@@ -132,12 +128,13 @@ public class ArrayTheme {
         }
     }
 
-    private static boolean addNewNum(int[] intArr, int num) {
+    private static boolean isUniq(int[] intArr, int num) {
         for (int i = 0; i < intArr.length; i++) {
             if (intArr[i] == 0) {
                 intArr[i] = num;
                 return true;
-            } else if (intArr[i] == num) {
+            }
+            if (intArr[i] == num) {
                 return false;
             }
         }
@@ -146,40 +143,40 @@ public class ArrayTheme {
 
     public static void copyFilledLines() {
         System.out.println("\n6. Копирование не пустых строк");
-        String[] stringArr = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
+        String[] srcStrings = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
 //        Варианты тестирования:
-//        String[] stringArr = {"    ", ""};
-//        String[] stringArr = {"    ", "AA", "", "E", "FF", "G", ""};
-//        String[] stringArr = {"FF", "G", ""};
+//        String[] srcStrings = {"    ", ""};
+//        String[] srcStrings = {"    ", "AA", "", "E", "FF", "G", ""};
+//        String[] srcStrings = {"FF", "G", ""};
 
         int notBlankLines = 0;
-        for (String line : stringArr) {
+        for (String line : srcStrings) {
             if (!line.isBlank()) {
                 notBlankLines++;
             }
         }
-        String[] CopyStringArr = new String[notBlankLines];
+        String[] destStrings = new String[notBlankLines];
 
         int sourcePos = 0;
         int destPos = 0;
         int length = 0;
         int index = 0;
-        for (String line : stringArr) {
+        for (String line : srcStrings) {
             if (!line.isBlank()) {
                 if (length == 0) {
                     sourcePos = index;
                 }
                 length++;
-            } else if (line.isBlank() && length != 0) {
-                System.arraycopy(stringArr, sourcePos, CopyStringArr, destPos, length);
+            } else if (length != 0) {
+                System.arraycopy(srcStrings, sourcePos, destStrings, destPos, length);
                 destPos += length;
                 length = 0;
             }
             index++;
         }
         System.out.println("Изначальный массив:");
-        System.out.println(Arrays.toString(stringArr));
+        System.out.println(Arrays.toString(srcStrings));
         System.out.println("Скопированный массив:");
-        System.out.println(Arrays.toString(CopyStringArr));
+        System.out.println(Arrays.toString(destStrings));
     }
 }
